@@ -1,13 +1,16 @@
 import sys
 import json
 
-if sys.argv != 3:
+if len(sys.argv) != 3:
     print("Uso correcto:")
     print("python ./img-proc.py ./archivo-de-entrada ./archivo-de-salida.json")
+    exit()
 
 data = {}
+inputFile = sys.argv[1]
+outputFile = sys.argv[2]
 
-with open("img.temp") as f:
+with open(inputFile, "r") as f:
     for line in f:
         if line.startswith("#"):
             key = line.strip("#").strip()
@@ -15,5 +18,5 @@ with open("img.temp") as f:
         else:
             data[key].append(line.strip())
 
-with open("tunuevoarchivo.json", "w") as f:
+with open(outputFile, "w") as f:
     json.dump(data, f)
